@@ -8,7 +8,7 @@ export class PostsService {
 
   constructor(private readonly repository: PostsRepository){}
   async create(createPostDto: CreatePostDto) {
-    return await this.repository.create(createPostDto)
+    return await this.repository.create(createPostDto);
   }
 
   async findAll() {

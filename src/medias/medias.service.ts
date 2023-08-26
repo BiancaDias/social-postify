@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateMediaDto } from './dto/create-media.dto';
 import { MediasRepository } from './medias.respository';
 
@@ -8,8 +8,7 @@ export class MediasService {
   constructor(private readonly repository: MediasRepository){}
 
   async create(createMediaDto: CreateMediaDto) {
-    //fazer verificação se já existe um registro com a mesma combinação de title e username
-    return await this.repository.create(createMediaDto)
+    return await this.repository.create(createMediaDto);
   }
 
   async findAll() {
@@ -17,7 +16,9 @@ export class MediasService {
   }
 
   async findOne(id: number) {
-    return await this.repository.findOne(id);
+    const media = await this.repository.findOne(id);
+    if(!media) throw new HttpException("Not Found", HttpStatus.NOT_FOUND)
+    return media;
   }
 
   async update(id: number, updateMediaDto: CreateMediaDto) {
@@ -25,6 +26,11 @@ export class MediasService {
   }
 
   async remove(id: number) {
+
+    const publications = await this.repository.findMedia(id);
+
+    if(publications) throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+
     return await this.repository.remove(id);
   }
 }

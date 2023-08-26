@@ -3,11 +3,11 @@ import { IsInt, IsNotEmpty, IsString } from "class-validator";
 export class CreatePublicationDto {
   @IsInt()
   @IsNotEmpty()
-  mediaId: string
+  mediaId: number
 
   @IsInt()
   @IsNotEmpty()
-  postId: string
+  postId: number
 
   @IsString()
   @IsNotEmpty()

@@ -25,4 +25,8 @@ export class MediasRepository {
   async remove(id: number) {
     return await this.prisma.medias.delete({ where: { id } });
   }
+
+  async findMedia(mediaId: number){
+    return await this.prisma.publications.findFirst({ where:{ mediaId }})
+  }
 }

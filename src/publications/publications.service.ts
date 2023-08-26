@@ -1,25 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePublicationDto } from './dto/create-publication.dto';
+import { PublicationsRepository } from './publications.respository';
 
 @Injectable()
 export class PublicationsService {
-  create(createPublicationDto: CreatePublicationDto) {
-    return 'This action adds a new publication';
+
+  constructor(private readonly repository: PublicationsRepository){}
+
+  async create(createPublicationDto: CreatePublicationDto) {
+    return await this.repository.create(createPublicationDto);
   }
 
-  findAll() {
-    return `This action returns all publications`;
+  async findAll() {
+    return await this.repository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} publication`;
+  async findOne(id: number) {
+    return await this.repository.findOne(id);
   }
 
-  update(id: number, updatePublicationDto: CreatePublicationDto) {
-    return `This action updates a #${id} publication`;
+  async update(id: number, updatePublicationDto: CreatePublicationDto) {
+    return await this.repository.update(id, updatePublicationDto)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} publication`;
+  async remove(id: number) {
+    return await this.repository.remove(id);
   }
 }
