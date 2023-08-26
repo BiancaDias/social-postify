@@ -27,4 +27,8 @@ export class PostsRepository {
   async remove(id: number) {
     return await this.prisma.posts.delete({ where: { id } });
   }
+
+  async findMedia(postId: number){
+    return await this.prisma.publications.findFirst({ where:{ postId }})
+  }
 }
