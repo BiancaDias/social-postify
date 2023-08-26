@@ -34,7 +34,7 @@ model Publications {
   id Int @id @default(autoincrement())
   mediaId Int
   postId Int
-  date String
+  date DateTime
   media Medias @relation(fields: [mediaId], references: [id])
   post Posts @relation(fields: [postId], references: [id])
 

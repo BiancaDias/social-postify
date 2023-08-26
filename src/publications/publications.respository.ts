@@ -26,4 +26,28 @@ export class PublicationsRepository {
     return await this.prisma.publications.delete({ where: { id } });
   }
 
+  async findAfter(date: Date){
+    return await this.prisma.publications.findMany({
+      where:{
+        date: { gt: date}
+      }
+    })
+  }
+
+  async findPublished(published: boolean, date: Date){
+    if(published){
+      return await this.prisma.publications.findMany({
+        where:{
+          date: { lte: date}
+        }
+      })
+    }else{
+      return await this.prisma.publications.findMany({
+        where:{
+          date: { gt: date}
+        }
+      })
+    }
+  }
+
 }
